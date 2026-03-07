@@ -58,11 +58,11 @@ nix run nixpkgs#pixicode           # veya en güncel geliştirme dalı için git
 
 ### Masaüstü Uygulaması (BETA)
 
-PixiCode ayrıca masaüstü uygulaması olarak da mevcuttur. Doğrudan [sürüm sayfasından](https://github.com/anomalyco/pixicode/releases) veya [pixibox.ai/download](https://github.com/aerovfx/pixicode/download) adresinden indirebilirsiniz.
+PixiCode ayrıca masaüstü uygulaması olarak da mevcuttur. **macOS (Apple Silicon):** [.dmg indir](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg). [Sürüm sayfası](https://github.com/aerovfx/pixicode/releases) veya [pixibox.ai/download](https://pixibox.ai/download) üzerinden de indirebilirsiniz.
 
 | Platform              | İndirme                               |
 | --------------------- | ------------------------------------- |
-| macOS (Apple Silicon) | `pixicode-desktop-darwin-aarch64.dmg` |
+| macOS (Apple Silicon) | [.dmg indir](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg) |
 | macOS (Intel)         | `pixicode-desktop-darwin-x64.dmg`     |
 | Windows               | `pixicode-desktop-windows-x64.exe`    |
 | Linux                 | `.deb`, `.rpm` veya AppImage          |

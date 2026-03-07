@@ -63,6 +63,8 @@ Giao diện làm việc theo ba cột giống IDE (VS Code / Cursor): session & 
 
 ### Cài đặt
 
+**Desktop (macOS Apple Silicon):** [Tải .dmg](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg) — cài và trải nghiệm ngay.
+
 ```bash
 # Nhanh
 curl -fsSL https://pixibox.ai/install | bash

@@ -58,11 +58,11 @@ nix run nixpkgs#pixicode           # lub github:anomalyco/pixicode dla najnowsze
 
 ### Aplikacja desktopowa (BETA)
 
-PixiCode jest także dostępny jako aplikacja desktopowa. Pobierz ją bezpośrednio ze strony [releases](https://github.com/anomalyco/pixicode/releases) lub z [pixibox.ai/download](https://github.com/aerovfx/pixicode/download).
+PixiCode jest także dostępny jako aplikacja desktopowa. **macOS (Apple Silicon):** [Pobierz .dmg](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg). Lub ze strony [releases](https://github.com/aerovfx/pixicode/releases) / [pixibox.ai/download](https://pixibox.ai/download).
 
 | Platforma             | Pobieranie                            |
 | --------------------- | ------------------------------------- |
-| macOS (Apple Silicon) | `pixicode-desktop-darwin-aarch64.dmg` |
+| macOS (Apple Silicon) | [Pobierz .dmg](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg) |
 | macOS (Intel)         | `pixicode-desktop-darwin-x64.dmg`     |
 | Windows               | `pixicode-desktop-windows-x64.exe`    |
 | Linux                 | `.deb`, `.rpm` lub AppImage           |

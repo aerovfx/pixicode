@@ -58,11 +58,11 @@ nix run nixpkgs#pixicode           # 또는 github:anomalyco/pixicode 로 최신
 
 ### 데스크톱 앱 (BETA)
 
-PixiCode 는 데스크톱 앱으로도 제공됩니다. [releases page](https://github.com/anomalyco/pixicode/releases) 에서 직접 다운로드하거나 [pixibox.ai/download](https://github.com/aerovfx/pixicode/download) 를 이용하세요.
+PixiCode 는 데스크톱 앱으로도 제공됩니다. **macOS (Apple Silicon):** [.dmg 다운로드](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg). [releases](https://github.com/aerovfx/pixicode/releases) 또는 [pixibox.ai/download](https://pixibox.ai/download) 에서도 받을 수 있습니다.
 
 | 플랫폼                | 다운로드                              |
 | --------------------- | ------------------------------------- |
-| macOS (Apple Silicon) | `pixicode-desktop-darwin-aarch64.dmg` |
+| macOS (Apple Silicon) | [.dmg 다운로드](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg) |
 | macOS (Intel)         | `pixicode-desktop-darwin-x64.dmg`     |
 | Windows               | `pixicode-desktop-windows-x64.exe`    |
 | Linux                 | `.deb`, `.rpm`, 또는 AppImage         |

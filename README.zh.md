@@ -58,11 +58,11 @@ nix run nixpkgs#pixicode           # 或用 github:anomalyco/pixicode 获取最�
 
 ### 桌面应用程序 (BETA)
 
-PixiCode 也提供桌面版应用。可直接从 [发布页 (releases page)](https://github.com/anomalyco/pixicode/releases) 或 [pixibox.ai/download](https://pixibox.ai/download) 下载。
+PixiCode 也提供桌面版应用。**macOS (Apple Silicon) 直接下载：** [下载 .dmg](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg)。亦可从 [发布页](https://github.com/aerovfx/pixicode/releases) 或 [pixibox.ai/download](https://pixibox.ai/download) 下载。
 
 | 平台                  | 下载文件                              |
 | --------------------- | ------------------------------------- |
-| macOS (Apple Silicon) | `pixicode-desktop-darwin-aarch64.dmg` |
+| macOS (Apple Silicon) | [下载 .dmg](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg) |
 | macOS (Intel)         | `pixicode-desktop-darwin-x64.dmg`     |
 | Windows               | `pixicode-desktop-windows-x64.exe`    |
 | Linux                 | `.deb`、`.rpm` 或 AppImage            |

@@ -59,11 +59,11 @@ nix run nixpkgs#pixicode           # ili github:anomalyco/pixicode za najnoviji 
 
 ### Desktop aplikacija (BETA)
 
-PixiCode je dostupan i kao desktop aplikacija. Preuzmi je direktno sa [stranice izdanja](https://github.com/anomalyco/pixicode/releases) ili sa [pixibox.ai/download](https://github.com/aerovfx/pixicode/download).
+PixiCode je dostupan i kao desktop aplikacija. **macOS (Apple Silicon):** [Preuzmi .dmg](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg). Ili sa [stranice izdanja](https://github.com/aerovfx/pixicode/releases) / [pixibox.ai/download](https://pixibox.ai/download).
 
 | Platforma             | Preuzimanje                           |
 | --------------------- | ------------------------------------- |
-| macOS (Apple Silicon) | `pixicode-desktop-darwin-aarch64.dmg` |
+| macOS (Apple Silicon) | [Preuzmi .dmg](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg) |
 | macOS (Intel)         | `pixicode-desktop-darwin-x64.dmg`     |
 | Windows               | `pixicode-desktop-windows-x64.exe`    |
 | Linux                 | `.deb`, `.rpm`, ili AppImage          |

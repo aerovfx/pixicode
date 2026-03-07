@@ -59,11 +59,11 @@ nix run nixpkgs#pixicode           # or github:anomalyco/pixicode for latest dev
 
 ### ডেস্কটপ অ্যাপ (BETA)
 
-PixiCode ডেস্কটপ অ্যাপ্লিকেশন হিসেবেও উপলব্ধ। সরাসরি [রিলিজ পেজ](https://github.com/anomalyco/pixicode/releases) অথবা [pixibox.ai/download](https://github.com/aerovfx/pixicode/download) থেকে ডাউনলোড করুন।
+PixiCode ডেস্কটপ অ্যাপ্লিকেশন হিসেবেও উপলব্ধ। **macOS (Apple Silicon):** [.dmg ডাউনলোড](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg)। [রিলিজ পেজ](https://github.com/aerovfx/pixicode/releases) অথবা [pixibox.ai/download](https://pixibox.ai/download) থেকেও।
 
 | প্ল্যাটফর্ম           | ডাউনলোড                               |
 | --------------------- | ------------------------------------- |
-| macOS (Apple Silicon) | `pixicode-desktop-darwin-aarch64.dmg` |
+| macOS (Apple Silicon) | [.dmg ডাউনলোড](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg) |
 | macOS (Intel)         | `pixicode-desktop-darwin-x64.dmg`     |
 | Windows               | `pixicode-desktop-windows-x64.exe`    |
 | Linux                 | `.deb`, `.rpm`, or AppImage           |

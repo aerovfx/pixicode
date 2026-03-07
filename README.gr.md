@@ -59,11 +59,11 @@ nix run nixpkgs#pixicode           # ή github:anomalyco/pixicode με βάση 
 
 ### Εφαρμογή Desktop (BETA)
 
-Το PixiCode είναι επίσης διαθέσιμο ως εφαρμογή. Κατέβασε το απευθείας από τη [σελίδα εκδόσεων](https://github.com/anomalyco/pixicode/releases) ή το [pixibox.ai/download](https://github.com/aerovfx/pixicode/download).
+Το PixiCode είναι επίσης διαθέσιμο ως εφαρμογή. **macOS (Apple Silicon):** [Λήψη .dmg](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg). Ή από τη [σελίδα εκδόσεων](https://github.com/aerovfx/pixicode/releases) / [pixibox.ai/download](https://pixibox.ai/download).
 
 | Πλατφόρμα             | Λήψη                                  |
 | --------------------- | ------------------------------------- |
-| macOS (Apple Silicon) | `pixicode-desktop-darwin-aarch64.dmg` |
+| macOS (Apple Silicon) | [Λήψη .dmg](https://github.com/aerovfx/pixicode/raw/main/release/dmg/PixiCode%20Dev_1.2.17_aarch64.dmg) |
 | macOS (Intel)         | `pixicode-desktop-darwin-x64.dmg`     |
 | Windows               | `pixicode-desktop-windows-x64.exe`    |
 | Linux                 | `.deb`, `.rpm`, ή AppImage            |
