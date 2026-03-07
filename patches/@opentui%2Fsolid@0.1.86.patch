@@ -1,0 +1,40 @@
+diff --git a/jsx-runtime.js b/jsx-runtime.js
+--- /dev/null
++++ b/jsx-runtime.js
+@@ -0,0 +1,14 @@
++import { createElement, createComponent, spread } from ".";
++
++function Fragment(props) {
++  return props.children;
++}
++function jsx(type, props) {
++  if (typeof type === "string") {
++    const el = createElement(type);
++    if (props) spread(el, props);
++    return el;
++  }
++  return createComponent(type, props || {});
++}
++export { Fragment, jsx, jsx as jsxDEV, jsx as jsxs };
+diff --git a/package.json b/package.json
+--- a/package.json
++++ b/package.json
+@@ -24,8 +24,14 @@
+     "./bun-plugin": {
+       "types": "./scripts/solid-plugin.d.ts",
+       "import": "./scripts/solid-plugin.ts"
+     },
+-    "./jsx-runtime": "./jsx-runtime.d.ts",
+-    "./jsx-dev-runtime": "./jsx-runtime.d.ts"
++    "./jsx-runtime": {
++      "types": "./jsx-runtime.d.ts",
++      "import": "./jsx-runtime.js",
++      "default": "./jsx-runtime.js"
++    },
++    "./jsx-dev-runtime": {
++      "types": "./jsx-runtime.d.ts",
++      "import": "./jsx-runtime.js",
++      "default": "./jsx-runtime.js"
++    }
+   },
+   "dependencies": {

@@ -1,0 +1,68 @@
+[package]
+name = "pixicode-core"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description.workspace = true
+default-run = "pixicode"
+
+[[bin]]
+name = "pixicode"
+path = "src/main.rs"
+
+[dependencies]
+# HTTP & Web
+axum = { workspace = true }
+tower = { workspace = true }
+tower-http = { workspace = true }
+hyper = { workspace = true }
+reqwest = { version = "0.12", features = ["json", "rustls-tls"], default-features = false }
+
+# Async
+tokio = { workspace = true }
+tokio-stream = { workspace = true }
+futures = { workspace = true }
+async-trait = "0.1"
+async-stream = "0.3"
+
+# Database
+rusqlite = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+schemars = "0.8"
+
+# CLI
+clap = { workspace = true }
+
+# Logging
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+tracing-appender = { workspace = true }
+
+# Utilities
+ulid = { workspace = true }
+chrono = { workspace = true }
+dirs = { workspace = true }
+thiserror = { workspace = true }
+anyhow = { workspace = true }
+base64 = { workspace = true }
+keyring = "2.2"
+ctrlc = { workspace = true }
+signal-hook = { workspace = true }
+glob = "0.3"
+tempfile = "3"
+
+# Provider dependencies
+bytes = "1"
+pin-project-lite = "0.2"
+tokio-util = "0.7"
+time = { version = "0.3", features = ["formatting", "macros"] }
+url = "2"
+sha2 = "0.10"
+hmac = "0.12"
+hex = "0.4"
+
+[dev-dependencies]
+tokio = { workspace = true }

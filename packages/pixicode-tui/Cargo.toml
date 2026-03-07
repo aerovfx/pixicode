@@ -1,0 +1,35 @@
+[package]
+name = "pixicode-tui"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Terminal UI for pixicode"
+publish = false
+
+[[bin]]
+name = "pixicode-tui"
+path = "src/main.rs"
+
+[dependencies]
+pixicode-core = { path = "../pixicode-core" }
+pixicode-types = { path = "../pixicode-types" }
+
+# TUI
+ratatui = "0.29"
+crossterm = { version = "0.28", features = ["event-stream"] }
+
+# Async
+tokio = { workspace = true }
+tokio-stream = { workspace = true }
+futures = { workspace = true }
+
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Utilities
+anyhow = { workspace = true }
+chrono = { workspace = true }
+
+# Styling
+unicode-width = "0.2"

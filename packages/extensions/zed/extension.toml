@@ -1,0 +1,36 @@
+id = "pixicode"
+name = "PixiCode"
+description = "The open source coding agent."
+version = "1.2.17"
+schema_version = 1
+authors = ["Anomaly"]
+repository = "https://github.com/anomalyco/pixicode"
+
+[agent_servers.pixicode]
+name = "PixiCode"
+icon = "./icons/pixicode.svg"
+
+[agent_servers.pixicode.targets.darwin-aarch64]
+archive = "https://github.com/anomalyco/pixicode/releases/download/v1.2.17/pixicode-darwin-arm64.zip"
+cmd = "./pixicode"
+args = ["acp"]
+
+[agent_servers.pixicode.targets.darwin-x86_64]
+archive = "https://github.com/anomalyco/pixicode/releases/download/v1.2.17/pixicode-darwin-x64.zip"
+cmd = "./pixicode"
+args = ["acp"]
+
+[agent_servers.pixicode.targets.linux-aarch64]
+archive = "https://github.com/anomalyco/pixicode/releases/download/v1.2.17/pixicode-linux-arm64.tar.gz"
+cmd = "./pixicode"
+args = ["acp"]
+
+[agent_servers.pixicode.targets.linux-x86_64]
+archive = "https://github.com/anomalyco/pixicode/releases/download/v1.2.17/pixicode-linux-x64.tar.gz"
+cmd = "./pixicode"
+args = ["acp"]
+
+[agent_servers.pixicode.targets.windows-x86_64]
+archive = "https://github.com/anomalyco/pixicode/releases/download/v1.2.17/pixicode-windows-x64.zip"
+cmd = "./pixicode.exe"
+args = ["acp"]

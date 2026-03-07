@@ -1,0 +1,19 @@
+[package]
+name = "pixicode-types"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+description = "Shared types for pixicode CLI, TUI, and Desktop"
+publish = false
+
+[dependencies]
+# Serialization
+serde = { workspace = true }
+serde_json = { workspace = true }
+
+# Utilities
+chrono = { workspace = true }
+ulid = { workspace = true }
+
+# Schema generation
+schemars = "0.8"

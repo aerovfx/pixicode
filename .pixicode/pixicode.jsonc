@@ -1,0 +1,13 @@
+{
+  "$schema": "https://pixibox.ai/config.json",
+  "provider": {
+    "pixicode": {
+      "options": {},
+    },
+  },
+  "mcp": {},
+  "tools": {
+    "github-triage": false,
+    "github-pr-search": false,
+  },
+}

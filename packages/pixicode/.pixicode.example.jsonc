@@ -1,0 +1,53 @@
+{
+  "$schema": "https://pixicode.dev/schema/config.json",
+  "providers": {
+    "ollama": {
+      "baseUrl": "http://localhost:11434/v1",
+      "disabled": false,
+      "models": ["edu-assistant:latest", "llama3", "mistral"]
+    }
+  },
+  "model": "ollama/edu-assistant:latest",
+  "models": {
+    "ollama/edu-assistant:latest": {
+      "temperature": 0.7,
+      "maxTokens": 4096
+    },
+    "ollama/llama3": {
+      "temperature": 0.7,
+      "maxTokens": 8192
+    },
+    "ollama/mistral": {
+      "temperature": 0.7,
+      "maxTokens": 8192
+    }
+  },
+  "theme": "dark",
+  "keybinds": {
+    "leader": "ctrl+x",
+    "appExit": "ctrl+c,ctrl+d,<leader>q",
+    "sessionNew": "<leader>n",
+    "sessionList": "<leader>l"
+  },
+  "agents": {
+    "build": {
+      "type": "build",
+      "model": "ollama/edu-assistant:latest"
+    },
+    "plan": {
+      "type": "plan",
+      "model": "ollama/edu-assistant:latest"
+    },
+    "general": {
+      "type": "general",
+      "model": "ollama/edu-assistant:latest"
+    }
+  },
+  "permission": {
+    "default": "ask",
+    "allowed": ["read", "write", "bash", "glob", "grep"]
+  },
+  "instructions": [],
+  "plugin": [],
+  "mcp": {}
+}
