@@ -6,13 +6,19 @@ use serde::Deserialize;
 use std::sync::Arc;
 
 use crate::server::error::{ApiError, ApiResult};
-use crate::server::state::AppState;
+use crate::server::state::{AppState, PermissionReply};
 
 #[derive(Deserialize)]
 pub struct GrantRequest {
     pub project_id: String,
     pub tool: String,
     pub action: String,
+}
+
+#[derive(Deserialize)]
+pub struct ReplyBody {
+    pub reply: String,
+    pub message: Option<String>,
 }
 
 pub async fn get(State(s): State<Arc<AppState>>) -> ApiResult<Json<serde_json::Value>> {
@@ -99,5 +105,19 @@ pub async fn revoke(
         Ok(())
     }).map_err(|e| ApiError::internal(e.to_string()))?;
 
+    Ok(Json(serde_json::json!({ "ok": true })))
+}
+
+/// POST /permission/:request_id/reply — store reply for a permission request (Phase 1 parity with TS).
+pub async fn reply(
+    State(s): State<Arc<AppState>>,
+    Path(request_id): Path<String>,
+    Json(body): Json<ReplyBody>,
+) -> ApiResult<Json<serde_json::Value>> {
+    let reply = PermissionReply {
+        reply: body.reply,
+        message: body.message,
+    };
+    s.permission_replies.write().await.insert(request_id, reply);
     Ok(Json(serde_json::json!({ "ok": true })))
 }

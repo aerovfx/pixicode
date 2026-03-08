@@ -50,3 +50,24 @@ pub async fn answer(
         None => Err(ApiError::not_found("question not found")),
     }
 }
+
+/// POST /question/:id/reject — reject a pending question.
+pub async fn reject(
+    State(s): State<Arc<AppState>>,
+    Path(id): Path<String>,
+) -> ApiResult<Json<serde_json::Value>> {
+    let tx = {
+        let mut questions = s.questions.write().await;
+        questions.remove(&id)
+    };
+
+    match tx {
+        Some(state) => {
+            // Send a rejection marker
+            let _ = Arc::try_unwrap(state.answer_tx)
+                .map(|tx| tx.send("__rejected__".to_string()));
+            Ok(Json(serde_json::json!({ "ok": true, "rejected": true })))
+        }
+        None => Err(ApiError::not_found("question not found")),
+    }
+}

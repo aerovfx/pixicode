@@ -1214,6 +1214,23 @@ export namespace Provider {
     return info
   }
 
+  export type SpeculativeDraft =
+    | { draft: string; numDraftTokens?: number }
+    | { draft: { providerID: string; modelID: string }; numDraftTokens?: number }
+
+  export async function resolveSpeculativeDraft(
+    model: Model,
+  ): Promise<{ draftModel: Model; numDraftTokens: number } | null> {
+    const spec = model.options?.speculative as SpeculativeDraft | undefined
+    if (!spec?.draft) return null
+    const raw = spec.draft
+    const numDraftTokens = Math.min(32, Math.max(1, spec.numDraftTokens ?? 6))
+    const { providerID, modelID } =
+      typeof raw === "string" ? parseModel(raw) : { providerID: raw.providerID, modelID: raw.modelID }
+    const draftModel = await getModel(providerID, modelID)
+    return { draftModel, numDraftTokens }
+  }
+
   export async function getLanguage(model: Model): Promise<LanguageModelV2> {
     const s = await state()
     const key = `${model.providerID}/${model.id}`

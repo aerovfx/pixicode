@@ -63,8 +63,8 @@ impl McpServer {
                         None => Err("tools/call not configured".to_string()),
                     }
                 }
-                "resources/list" => Ok(serde_json::json!({ "resources": [] as Vec<serde_json::Value> })),
-                "prompts/list" => Ok(serde_json::json!({ "prompts": [] as Vec<serde_json::Value> })),
+                "resources/list" => Ok(serde_json::json!({ "resources": serde_json::Value::Array(vec![]) })),
+                "prompts/list" => Ok(serde_json::json!({ "prompts": serde_json::Value::Array(vec![]) })),
                 _ => Err(format!("unknown method: {}", method)),
             };
 

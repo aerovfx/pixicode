@@ -329,6 +329,37 @@ impl Config {
     pub fn config_dir(&self) -> &std::path::Path {
         &self._config_dir
     }
+
+    /// Patch the project-level config (`.pixicode/pixicode.jsonc`) with the given
+    /// partial JSON overlay.  Creates the file if it doesn't exist.
+    ///
+    /// This preserves the JSONC format by doing a JSON-level merge.
+    pub async fn patch_project_config(
+        directory: &str,
+        overlay: serde_json::Value,
+    ) -> Result<()> {
+        use std::path::Path;
+
+        let dot_dir = Path::new(directory).join(".pixicode");
+        tokio::fs::create_dir_all(&dot_dir).await?;
+
+        let config_path = dot_dir.join("pixicode.jsonc");
+        let existing = if config_path.exists() {
+            let raw = tokio::fs::read_to_string(&config_path).await?;
+            parse_jsonc::<serde_json::Value>(&raw).unwrap_or_default()
+        } else {
+            serde_json::Value::Object(serde_json::Map::new())
+        };
+
+        let mut merged = existing;
+        json_merge(&mut merged, overlay);
+
+        let pretty = serde_json::to_string_pretty(&merged)?;
+        tokio::fs::write(&config_path, pretty).await?;
+
+        debug!(path = %config_path.display(), "Project config written");
+        Ok(())
+    }
 }
 
 /// Naive deep-merge: deserialise `partial` and overlay on `base`.

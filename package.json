@@ -11,7 +11,7 @@
     "dev:web": "bun --cwd packages/app dev",
     "dev:serve": "bun run --cwd packages/pixicode src/index.ts serve",
     "dev:serve:rust": "cargo run -p pixicode-core -- serve",
-    "dev:web:full": "concurrently -n serve,web -c blue,green \"npm run dev:serve\" \"npm run dev:web\"",
+    "dev:web:full": "concurrently -n serve,web -c blue,green \"bun run dev:serve\" \"bun run dev:web\"",
     "dev:web:full:rust": "concurrently -n serve,web -c blue,green \"npm run dev:serve:rust\" \"npm run dev:web\"",
     "dev:storybook": "bun --cwd packages/storybook storybook",
     "typecheck": "bun turbo typecheck",

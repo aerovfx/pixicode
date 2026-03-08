@@ -1,9 +1,17 @@
+mod acp;
+mod agent;
 mod bus;
 mod cli;
 mod config;
 mod db;
+mod git;
 mod log;
+mod mcp;
+mod plugin;
+mod providers;
 mod server;
+mod session;
+mod tools;
 
 use anyhow::Result;
 use clap::{Parser, Subcommand};
@@ -12,6 +20,7 @@ use tracing::info;
 
 use crate::config::Config;
 use crate::db::Database;
+use crate::providers::registry::ProviderRegistry;
 use crate::server::AppState;
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -222,7 +231,8 @@ async fn main() -> Result<()> {
         }
 
         Commands::Serve { host, port } => {
-            let state = Arc::new(AppState::new(config, db, shutdown_tx.subscribe()));
+            let registry = Arc::new(ProviderRegistry::with_builtins());
+            let state = Arc::new(AppState::new(config, db, shutdown_tx.subscribe(), registry));
             let addr = format!("{}:{}", host, port);
             info!(addr, "Starting HTTP server");
             server::run(state, addr, shutdown_tx.subscribe()).await?;

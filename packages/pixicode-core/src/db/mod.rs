@@ -63,6 +63,19 @@ impl Database {
         Ok(db)
     }
 
+    /// Open an in-memory database for testing. Runs migrations automatically.
+    #[cfg(test)]
+    pub fn open_in_memory() -> Result<Self> {
+        let conn = Connection::open_in_memory()
+            .context("open in-memory SQLite")?;
+        Self::configure_pragmas(&conn)?;
+        let db = Database {
+            inner: Arc::new(Mutex::new(conn)),
+        };
+        db.with(|c| migrate::run(c))?;
+        Ok(db)
+    }
+
     // ─── PRAGMA setup ──────────────────────────────────────────────────────
 
     fn configure_pragmas(conn: &Connection) -> Result<()> {

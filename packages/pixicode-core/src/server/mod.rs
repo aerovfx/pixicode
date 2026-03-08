@@ -19,7 +19,8 @@ use tower_http::cors::CorsLayer;
 use tower_http::trace::TraceLayer;
 use tracing::info;
 
-use crate::server::middleware::{auth_middleware, request_logger};
+use axum::middleware as axum_middleware;
+use crate::server::middleware::{auth_middleware, request_logger, workspace_ctx_middleware};
 use crate::server::routes::build_router;
 
 /// Run the Axum HTTP server until the shutdown signal fires.
@@ -62,5 +63,7 @@ pub fn build_app(state: Arc<AppState>) -> Router {
         .layer(TraceLayer::new_for_http())
         .layer(cors);
 
-    build_router(state).layer(middleware_stack)
+    build_router(state)
+        .layer(axum_middleware::from_fn(workspace_ctx_middleware))
+        .layer(middleware_stack)
 }

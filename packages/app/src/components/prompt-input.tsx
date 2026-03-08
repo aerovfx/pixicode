@@ -34,6 +34,7 @@ import { DialogSelectModelUnpaid } from "@/components/dialog-select-model-unpaid
 import { useProviders } from "@/hooks/use-providers"
 import { useCommand } from "@/context/command"
 import { Persist, persisted } from "@/utils/persist"
+import { useGlobalSync } from "@/context/global-sync"
 import { usePermission } from "@/context/permission"
 import { useLanguage } from "@/context/language"
 import { usePlatform } from "@/context/platform"
@@ -55,6 +56,7 @@ import { PromptImageAttachments } from "./prompt-input/image-attachments"
 import { PromptDragOverlay } from "./prompt-input/drag-overlay"
 import { promptPlaceholder } from "./prompt-input/placeholder"
 import { ImagePreview } from "@pixicode-ai/ui/image-preview"
+import { showToast } from "@pixicode-ai/ui/toast"
 
 interface PromptInputProps {
   class?: string
@@ -106,9 +108,44 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
   const dialog = useDialog()
   const providers = useProviders()
   const command = useCommand()
+  const globalSync = useGlobalSync()
   const permission = usePermission()
   const language = useLanguage()
   const platform = usePlatform()
+
+  const websearchAllowed = createMemo(() => {
+    const p = globalSync.data.config?.permission
+    if (!p || typeof p !== "object" || Array.isArray(p)) return false
+    const map = p as Record<string, unknown>
+    const get = (v: unknown): "allow" | "ask" | "deny" | undefined =>
+      v === "allow" || v === "ask" || v === "deny"
+        ? v
+        : v && typeof v === "object" && !Array.isArray(v)
+          ? get((v as Record<string, unknown>)["*"])
+          : undefined
+    const action = get(map["websearch"]) ?? get(map["*"]) ?? "ask"
+    return action === "allow"
+  })
+
+  const toggleWebsearch = () => {
+    const before = globalSync.data.config?.permission
+    const map = before && typeof before === "object" && !Array.isArray(before) ? { ...(before as object) } : {}
+    const next = websearchAllowed() ? "ask" : "allow"
+    const rollback = (err: unknown) => {
+      globalSync.set("config", "permission", before)
+      showToast({
+        variant: "error",
+        title: language.t("settings.permissions.toast.updateFailed.title"),
+        description: err instanceof Error ? err.message : String(err),
+      })
+    }
+    globalSync.set("config", "permission", { ...map, websearch: next })
+    globalSync.updateConfig({ permission: { websearch: next } }).catch(rollback)
+    showToast({
+      title: language.t(next === "allow" ? "toast.internetBrowsing.on.title" : "toast.internetBrowsing.off.title"),
+      description: language.t(next === "allow" ? "toast.internetBrowsing.on.description" : "toast.internetBrowsing.off.description"),
+    })
+  }
   let editorRef!: HTMLDivElement
   let fileInputRef: HTMLInputElement | undefined
   let scrollRef!: HTMLDivElement
@@ -1478,6 +1515,32 @@ export const PromptInput: Component<PromptInputProps> = (props) => {
                     </ModelSelectorPopover>
                   </TooltipKeybind>
                 </Show>
+                <TooltipKeybind
+                  placement="top"
+                  gutter={4}
+                  title={language.t(websearchAllowed() ? "command.internetBrowsing.disable" : "command.internetBrowsing.enable")}
+                >
+                  <Button
+                    variant="ghost"
+                    size="normal"
+                    class="size-7 flex items-center justify-center shrink-0"
+                    style={{
+                      opacity: buttonsSpring(),
+                      transform: `scale(${0.95 + buttonsSpring() * 0.05})`,
+                      filter: `blur(${(1 - buttonsSpring()) * 2}px)`,
+                      "pointer-events": buttonsSpring() > 0.5 ? "auto" : "none",
+                    }}
+                    onClick={toggleWebsearch}
+                    aria-label={language.t(websearchAllowed() ? "command.internetBrowsing.disable" : "command.internetBrowsing.enable")}
+                    aria-pressed={websearchAllowed()}
+                    classList={{
+                      "text-icon-strong-base": websearchAllowed(),
+                      "text-icon-weak": !websearchAllowed(),
+                    }}
+                  >
+                    <Icon name="link" size="small" />
+                  </Button>
+                </TooltipKeybind>
                 <TooltipKeybind
                   placement="top"
                   gutter={4}

@@ -82,6 +82,10 @@ export namespace Config {
         models: {
           "edu-assistant:latest": {
             limit: { context: 128_000, output: 4096 },
+            // Chế độ chạy chỉ target (không speculative). Bật speculative: thêm options.speculative trong pixicode.json.
+          },
+          "qwen3.5:0.8b": {
+            limit: { context: 32_768, output: 4096 },
           },
           "qwen3-coder:480b-cloud": {
             limit: { context: 256_000, output: 8192 },

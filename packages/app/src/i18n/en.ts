@@ -574,6 +574,11 @@ export const dict = {
   "session.share.copy.copied": "Copied",
   "session.share.copy.copyLink": "Copy link",
 
+  "session.push.action": "Push",
+  "session.push.tooltip": "Open GitHub repo to push your code",
+  "command.session.push": "Push to GitHub",
+  "command.session.push.description": "Open the aerovfx/pixicode repo to push your code",
+
   "lsp.tooltip.none": "No LSP servers",
   "lsp.label.connected": "{{count}} LSP",
 
@@ -817,6 +822,13 @@ export const dict = {
   "settings.permissions.tool.webfetch.description": "Fetch content from a URL",
   "settings.permissions.tool.websearch.title": "Web Search",
   "settings.permissions.tool.websearch.description": "Search the web",
+
+  "command.internetBrowsing.enable": "Enable Internet Browsing",
+  "command.internetBrowsing.disable": "Disable Internet Browsing",
+  "toast.internetBrowsing.on.title": "Internet Browsing enabled",
+  "toast.internetBrowsing.on.description": "The assistant can search the web in this project.",
+  "toast.internetBrowsing.off.title": "Internet Browsing disabled",
+  "toast.internetBrowsing.off.description": "Web search is turned off.",
   "settings.permissions.tool.codesearch.title": "Code Search",
   "settings.permissions.tool.codesearch.description": "Search code on the web",
   "settings.permissions.tool.external_directory.title": "External Directory",

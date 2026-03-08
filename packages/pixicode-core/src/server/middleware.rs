@@ -1,4 +1,4 @@
-//! Tower / Axum middleware: basic auth + request logger.
+//! Tower / Axum middleware: basic auth + request logger + workspace context.
 
 use axum::{
     extract::Request,
@@ -7,6 +7,90 @@ use axum::{
     response::Response,
 };
 use base64::{engine::general_purpose::STANDARD, Engine};
+
+// ─────────────────────────────────────────────────────────────────────────────
+//  Workspace context (Phase 1: parity with TS WorkspaceContext + Instance)
+// ─────────────────────────────────────────────────────────────────────────────
+
+/// Per-request workspace/directory context from query or headers.
+#[derive(Debug, Clone)]
+pub struct WorkspaceCtx {
+    pub directory: String,
+    pub workspace_id: Option<String>,
+    /// Detected project type based on marker files.
+    pub project_type: Option<ProjectType>,
+}
+
+/// Detected project type by presence of marker files in `directory`.
+#[derive(Debug, Clone, Copy, PartialEq, Eq)]
+pub enum ProjectType {
+    Rust,
+    Node,
+    Python,
+    Go,
+    Git,
+    Unknown,
+}
+
+/// Detect project type from directory markers.
+fn detect_project_type(directory: &str) -> Option<ProjectType> {
+    use std::path::Path;
+    let dir = Path::new(directory);
+    if dir.join("Cargo.toml").exists() {
+        Some(ProjectType::Rust)
+    } else if dir.join("package.json").exists() {
+        Some(ProjectType::Node)
+    } else if dir.join("pyproject.toml").exists() || dir.join("setup.py").exists() {
+        Some(ProjectType::Python)
+    } else if dir.join("go.mod").exists() {
+        Some(ProjectType::Go)
+    } else if dir.join(".git").exists() {
+        Some(ProjectType::Git)
+    } else {
+        None
+    }
+}
+
+fn query_param(q: Option<&str>, name: &str) -> Option<String> {
+    let q = q?;
+    for pair in q.split('&') {
+        let mut it = pair.splitn(2, '=');
+        if it.next()? == name {
+            return it.next().map(String::from);
+        }
+    }
+    None
+}
+
+/// Reads `directory` and optional `workspace` from query or headers and inserts
+/// `Extension(WorkspaceCtx)` so handlers can extract it.
+pub async fn workspace_ctx_middleware(req: Request, next: Next) -> Response {
+    let directory = query_param(req.uri().query(), "directory")
+        .or_else(|| {
+            req.headers()
+                .get("x-pixicode-directory")
+                .and_then(|v| v.to_str().ok())
+                .map(String::from)
+        })
+        .unwrap_or_else(|| std::env::current_dir().map(|p| p.display().to_string()).unwrap_or_else(|_| ".".into()));
+
+    let workspace_id = query_param(req.uri().query(), "workspace").or_else(|| {
+        req.headers()
+            .get("x-pixicode-workspace")
+            .and_then(|v| v.to_str().ok())
+            .map(String::from)
+    });
+
+    let project_type = detect_project_type(&directory);
+    let ctx = WorkspaceCtx {
+        directory,
+        workspace_id,
+        project_type,
+    };
+    let mut req = req;
+    req.extensions_mut().insert(ctx);
+    next.run(req).await
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 //  Basic auth middleware

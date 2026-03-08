@@ -1,5 +1,6 @@
 import { Installation } from "@/installation"
 import { Provider } from "@/provider/provider"
+import { createSpeculativeLanguageModel } from "@/session/speculative"
 import { Log } from "@/util/log"
 import {
   streamText,
@@ -56,12 +57,21 @@ export namespace LLM {
       modelID: input.model.id,
       providerID: input.model.providerID,
     })
-    const [language, cfg, provider, auth] = await Promise.all([
+    const [targetLanguage, cfg, provider, auth] = await Promise.all([
       Provider.getLanguage(input.model),
       Config.get(),
       Provider.getProvider(input.model.providerID),
       Auth.get(input.model.providerID),
     ])
+    const speculative = await Provider.resolveSpeculativeDraft(input.model)
+    const draftLanguage = speculative ? await Provider.getLanguage(speculative.draftModel) : null
+    const hasTools = Object.keys(input.tools).length > 0
+    const language =
+      speculative && draftLanguage && !hasTools
+        ? createSpeculativeLanguageModel(draftLanguage, targetLanguage, {
+            numDraftTokens: speculative.numDraftTokens,
+          })
+        : targetLanguage
     const isCodex = provider.id === "openai" && auth?.type === "oauth"
 
     const system = []

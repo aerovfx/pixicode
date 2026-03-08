@@ -32,3 +32,6 @@ tsconfig.tsbuildinfo
 *.log
 packages/sdk/js/openapi.json
 
+# Build artifacts / release (large binaries)
+release/
+
